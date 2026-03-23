@@ -1,6 +1,6 @@
 from flask import Blueprint , render_template , request , redirect , url_for , flash , session
 from app import db
-from app.models import Task , User
+from app.models import Task , User,create_user,get_user_by_username
 
 tasks_bp = Blueprint('tasks' , __name__)
 
@@ -8,6 +8,7 @@ tasks_bp = Blueprint('tasks' , __name__)
 def view_tasks():
     if 'user' not in session:
         return redirect(url_for('auth.login'))
+    
 
     user = User.query.filter_by(username=session['user']).first()
     tasks = Task.query.filter_by(user_id=user.id).all()
@@ -90,3 +91,5 @@ def delete_task(task_id):
         flash("Task deleted", "info")
 
     return redirect(url_for('tasks.view_tasks'))
+
+
