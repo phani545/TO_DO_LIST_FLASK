@@ -51,3 +51,8 @@ def logout():
     session.pop('user' , None)
     flash('Logged out' , 'info')
     return redirect(url_for('auth.login'))
+
+
+@auth_bp.route('/user/<string:username>')
+def user_details(username):
+    return redirect(url_for('auth.login'))
